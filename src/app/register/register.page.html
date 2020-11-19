@@ -5,18 +5,31 @@
 </ion-header>
 
 <ion-content>
-<form >
-  <ion-list>
-  <ion-item >
-      <ion-label>Email</ion-label>
-      <ion-input formControlName="username" type="email"></ion-input>
-  </ion-item>
-  <ion-item>
-      <ion-label>Password</ion-label>
-      <ion-input formControlName="password" type="Password"></ion-input>
-  </ion-item>
-</ion-list>
-  <ion-button ion-button type="submit">Register</ion-button>
+  <form [formGroup]="loginForm" (ngSubmit)="submit()">
+    <ion-list>
+      <ion-item>
+        <ion-label>Email</ion-label>
+        <ion-input formControlName="username" type="email"></ion-input>
+      </ion-item>
+      <div *ngFor="let error of errorMessages.username">
+        <ng-container *ngIf="username.hasError(error.type)   ">
+          <small class="error-message">{{ error.message}}</small>
+        </ng-container>
 
-</form>
+      </div>
+
+      <ion-item>
+        <ion-label>Password</ion-label>
+        <ion-input formControlName="password" type="Password"></ion-input>
+      </ion-item>
+      <div *ngFor="let error of errorMessages.password">
+        <ng-container *ngIf="password.hasError(error.type)  ">
+          <small class="error-message">{{ error.message}}</small>
+        </ng-container>
+      </div>
+
+      <ion-button ion-button type="submit">Register
+      </ion-button>
+    </ion-list>
+  </form>
 </ion-content>
